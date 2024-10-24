@@ -53,3 +53,5 @@ models:
 snapshots:
   assignment3:
     +schema: dbt_assignment_silver
+    +strategy: timestamp  # Set default snapshot strategy
+    +unique_key: listing_id  # Use the appropriate unique key for each 

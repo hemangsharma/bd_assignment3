@@ -2,9 +2,9 @@
 
 {{ config(
     target_schema='dbt_assignment_silver',
-    unique_key='listing_id',
+    unique_key="LISTING_ID",
     strategy='timestamp',
-    updated_at='scraped_date'
+    updated_at="SCRAPE_ID"
 ) }}
 
 SELECT 

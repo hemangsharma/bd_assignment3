@@ -1,3 +1,5 @@
+--models/silver/silver_airbnb_listings.sql
+
 {{ config(
     materialized='table'
 ) }}

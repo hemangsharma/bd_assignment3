@@ -2,8 +2,9 @@
 {{ config(
     materialized='table'
 ) }}
+
 SELECT DISTINCT
-    host_id,
-    host_neighbourhood,
-    host_is_superhost
+    "HOST_ID",
+    HOST_NEIGHBOURHOOD,
+    "HOST_IS_SUPERHOST"
 FROM {{ ref('silver_airbnb_listings') }}

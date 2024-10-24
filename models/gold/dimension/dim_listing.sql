@@ -3,9 +3,9 @@
     materialized='table'
 ) }}
 SELECT DISTINCT
-    listing_id,
-    listing_neighbourhood,
+    "LISTING_ID",
+    LISTING_NEIGHBOURHOOD,
     property_type,
     room_type,
-    accommodates
+    "ACCOMMODATES"
 FROM {{ ref('silver_airbnb_listings') }}

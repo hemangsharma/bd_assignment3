@@ -5,5 +5,5 @@
 SELECT DISTINCT
     property_type,
     room_type,
-    accommodates
+    "ACCOMMODATES"
 FROM {{ ref('silver_airbnb_listings') }}

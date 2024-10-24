@@ -46,9 +46,9 @@ models:
     gold:
       +schema: dbt_assignment_gold
       +materialized: table
-    datamart:
-      +schema: dbt_assignment_datamart
-      +materialized: view 
+      datamart:
+        +schema: dbt_assignment_datamart
+        +materialized: view 
 
 snapshots:
   assignment3:

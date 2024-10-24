@@ -2,9 +2,9 @@
 
 {{ config(
     target_schema='dbt_assignment_silver',
-    unique_key="LISTING_ID",
+    unique_key='HOST_NAME',
     strategy='timestamp',
-    updated_at="SCRAPED_DATE"
+    updated_at='PRICE'
 ) }}
 
 SELECT 
@@ -28,13 +28,7 @@ SELECT
     REVIEW_SCORES_CLEANLINESS,
     REVIEW_SCORES_CHECKIN,
     REVIEW_SCORES_COMMUNICATION,
-    REVIEW_SCORES_VALUE,
-    md5(coalesce(cast("LISTING_ID" as varchar), '')
-        || '|' || coalesce(cast("SCRAPED_DATE" as varchar), '')
-    ) as dbt_scd_id,
-    "SCRAPED_DATE" as dbt_updated_at,
-    "SCRAPED_DATE" as dbt_valid_from,
-    nullif("SCRAPED_DATE", "SCRAPED_DATE") as dbt_valid_to
+    REVIEW_SCORES_VALUE
 FROM {{ ref('silver_airbnb_listings') }}
 
 {% endsnapshot %}

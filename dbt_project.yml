@@ -54,4 +54,4 @@ snapshots:
   assignment3:
     +schema: dbt_assignment_silver
     +strategy: timestamp  # Set default snapshot strategy
-    +unique_key: 'LISTING_ID'
+    +unique_key: "LISTING_ID"

@@ -1,4 +1,6 @@
 -- models/datamart/dm_host_neighbourhood.sql
+{{ config(materialized='table') }}
+
 WITH host_metrics AS (
     SELECT
         HOST_NEIGHBOURHOOD,

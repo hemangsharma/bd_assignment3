@@ -52,4 +52,4 @@ models:
 
 snapshots:
   assignment3:
-    +schema: silver
+    +schema: dbt_assignment_silver

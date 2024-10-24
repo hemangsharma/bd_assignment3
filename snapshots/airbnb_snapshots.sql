@@ -1,7 +1,7 @@
 {% snapshot airbnb_listings_snapshot %}
 
 {{ config(
-    target_schema='silver',
+    target_schema='dbt_assignment_silver',
     unique_key='listing_id',
     strategy='timestamp',
     updated_at='scraped_date'

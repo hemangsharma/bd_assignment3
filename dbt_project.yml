@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'assignment3'
+name: 'bd_assignment3'
 version: '1.0.0'
 config-version: 2
 
@@ -36,7 +36,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  assignment3:
+  bd_assignment3:
     bronze:
       +schema: dbt_assignment_bronze
       +materialized: table
@@ -51,7 +51,7 @@ models:
         +materialized: view 
 
 snapshots:
-  assignment3:
+  bd_assignment3:
     +schema: dbt_assignment_silver
     +strategy: timestamp  # Set default snapshot strategy
     +unique_key: "LISTING_ID"

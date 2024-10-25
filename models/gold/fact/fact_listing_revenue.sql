@@ -9,7 +9,7 @@ WITH revenue_data AS (
         a."NUMBER_OF_REVIEWS",
         a.REVIEW_SCORES_RATING,
         a."SCRAPED_DATE",
-        l."LGA_NAME",  -- Assuming LGA_CODE is in the silver_lga_neighbourhood
+        l.lga_name,  -- Assuming LGA_CODE is in the silver_lga_neighbourhood
         SUM(a.PRICE) AS estimated_revenue,
         COUNT(a."LISTING_ID") AS active_listings
     FROM

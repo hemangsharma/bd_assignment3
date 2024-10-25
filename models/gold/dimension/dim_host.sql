@@ -1,10 +1,13 @@
 -- models/gold/dim_host.sql
+
 {{ config(
     materialized='table'
 ) }}
 
-SELECT DISTINCT
+SELECT 
     "HOST_ID",
-    HOST_NEIGHBOURHOOD,
-    "HOST_IS_SUPERHOST"
-FROM {{ ref('silver_airbnb_listings') }}
+    host_neighbourhood,
+    "HOST_IS_SUPERHOST",
+    num_listings
+FROM {{ ref('hosts_cleaned') }};
+

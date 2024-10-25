@@ -3,7 +3,7 @@
 
 WITH cleaned_census_g01 AS (
     SELECT
-        TRIM("LGA_CODE_2016") AS lga_code_2016,
+        TRIM(REPLACE("LGA_CODE_2016", 'LGA', '')) AS lga_code,
         CAST("Tot_P_M" AS BIGINT) AS total_population_male,
         CAST("Tot_P_F" AS BIGINT) AS total_population_female,
         CAST("Tot_P_P" AS BIGINT) AS total_population,
@@ -80,7 +80,7 @@ WITH cleaned_census_g01 AS (
 
 cleaned_census_g02 AS (
     SELECT
-        TRIM("LGA_CODE_2016") AS lga_code_2016,
+        TRIM(REPLACE("LGA_CODE_2016", 'LGA', '')) AS lga_code,  -- Stripping "LGA" and renaming the column
         CAST("Median_age_persons" AS BIGINT) AS median_age_persons,
         CAST("Median_mortgage_repay_monthly" AS BIGINT) AS median_mortgage_repay_monthly,
         CAST("Median_tot_prsnl_inc_weekly" AS BIGINT) AS median_total_personal_income_weekly,
@@ -105,4 +105,4 @@ SELECT
     g02.average_household_size
 FROM cleaned_census_g01 AS g01
 LEFT JOIN cleaned_census_g02 AS g02
-ON g01.lga_code_2016 = g02.lga_code_2016
+ON g01.lga_code = g02.lga_code

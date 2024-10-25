@@ -4,7 +4,7 @@
 WITH lga_mapping AS (
     SELECT 
         ln.listing_neighbourhood AS listing_neighbourhood,  -- Normalize suburb names for case-insensitive comparison
-        ln."LGA_NAME" AS host_neighbourhood_lga  -- LGA names to use for mapping
+        ln.lga_name AS host_neighbourhood_lga  -- LGA names to use for mapping
     FROM {{ ref('silver_lga_neighbourhood') }} ln
 ),
 host_metrics AS (
@@ -12,8 +12,8 @@ host_metrics AS (
         lm.host_neighbourhood_lga,  -- Mapped LGA name
         date_trunc('month', CAST(l."SCRAPED_DATE" AS DATE)) AS month_year,  -- Extracting month/year from SCRAPED_DATE
         COUNT(DISTINCT l."HOST_ID") AS distinct_hosts,  -- Number of distinct hosts
-        SUM(l.PRICE * (30 - l."AVAILABILITY_30")) AS estimated_revenue,  -- Calculating estimated revenue
-        (SUM(l.PRICE * (30 - l."AVAILABILITY_30")) / NULLIF(COUNT(DISTINCT l."HOST_ID"), 0)) AS estimated_revenue_per_host  -- Revenue per distinct host
+        SUM(l.PRICE * (30 - l.availability_30)) AS estimated_revenue,  -- Calculating estimated revenue
+        (SUM(l.PRICE * (30 - l.availability_30)) / NULLIF(COUNT(DISTINCT l."HOST_ID"), 0)) AS estimated_revenue_per_host  -- Revenue per distinct host
     FROM {{ ref('silver_airbnb_listings') }} l
     LEFT JOIN lga_mapping lm
         ON LOWER(l.listing_neighbourhood) = lm.listing_neighbourhood  -- Join for LGA mapping

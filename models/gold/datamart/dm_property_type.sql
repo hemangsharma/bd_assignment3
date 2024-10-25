@@ -1,20 +1,36 @@
 -- models/datamart/dm_property_type.sql
+{{ config(materialized='table') }}
+
 WITH property_metrics AS (
     SELECT
-        PROPERTY_TYPE,
-        ROOM_TYPE,
-        "ACCOMMODATES",
-        COUNT("LISTING_ID") AS active_listings,
-        MIN(PRICE) AS min_price,
-        MAX(PRICE) AS max_price,
-        AVG(PRICE) AS avg_price,
-        COUNT(DISTINCT "HOST_ID") AS distinct_hosts,
-        AVG(review_scores_rating) AS avg_review_score,
-        SUM(30 - "AVAILABILITY_30") AS total_stays,
-        SUM(PRICE * (30 - "AVAILABILITY_30")) AS estimated_revenue
-    FROM {{ ref('silver_airbnb_listings') }}
-    WHERE has_availability = 't'
-    GROUP BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES"
+        l.PROPERTY_TYPE,
+        l.ROOM_TYPE,
+        l."ACCOMMODATES",
+        date_trunc('month', CAST(l."SCRAPED_DATE" AS DATE)) AS month_year,  -- Extracting month/year from SCRAPED_DATE
+        COUNT(l."LISTING_ID") AS active_listings,  -- Count of active listings
+        MIN(l.PRICE) AS min_price,  -- Minimum price
+        MAX(l.PRICE) AS max_price,  -- Maximum price
+        AVG(l.PRICE) AS avg_price,  -- Average price
+        COUNT(DISTINCT l."HOST_ID") AS distinct_hosts,  -- Number of distinct hosts
+        AVG(l.review_scores_rating) AS avg_review_score,  -- Average review score
+        SUM(30 - l."AVAILABILITY_30") AS total_stays,  -- Total number of stays
+        SUM(l.PRICE * (30 - l."AVAILABILITY_30")) / NULLIF(COUNT(l."LISTING_ID"), 0) AS estimated_revenue_per_listing,  -- Average estimated revenue per active listing
+        COUNT(CASE WHEN l."HOST_IS_SUPERHOST" THEN 1 END) * 1.0 / NULLIF(COUNT(DISTINCT l."HOST_ID"), 0) AS superhost_rate,  -- Superhost rate
+        COUNT(CASE WHEN l.has_availability = 't' THEN 1 END) AS total_active_listings,  -- Count of active listings
+        COUNT(CASE WHEN l.has_availability = 'f' THEN 1 END) AS total_inactive_listings  -- Count of inactive listings
+    FROM {{ ref('silver_airbnb_listings') }} l
+    WHERE l.has_availability = 't'  -- Only count active listings
+    GROUP BY l.PROPERTY_TYPE, l.ROOM_TYPE, l."ACCOMMODATES", date_trunc('month', CAST(l."SCRAPED_DATE" AS DATE))  -- Grouping by necessary columns
+),
+
+-- Second CTE for calculating percentage changes
+property_changes AS (
+    SELECT *,
+        100.0 * (active_listings - LAG(active_listings) OVER (PARTITION BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES" ORDER BY month_year)) / NULLIF(LAG(active_listings) OVER (PARTITION BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES" ORDER BY month_year), 0) AS pct_change_active_listings,  -- Percentage change for active listings
+        100.0 * (total_inactive_listings - LAG(total_inactive_listings) OVER (PARTITION BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES" ORDER BY month_year)) / NULLIF(LAG(total_inactive_listings) OVER (PARTITION BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES" ORDER BY month_year), 0) AS pct_change_inactive_listings  -- Percentage change for inactive listings
+    FROM property_metrics
 )
+
 SELECT *
-FROM property_metrics
+FROM property_changes
+ORDER BY PROPERTY_TYPE, ROOM_TYPE, "ACCOMMODATES", month_year  -- Order by property_type, room_type, accommodates, and month/year

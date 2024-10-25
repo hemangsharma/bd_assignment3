@@ -1,4 +1,4 @@
--- models/datamart/dm_host_neighbourhood.sql
+-- models/gold//datamart/dm_host_neighbourhood.sql
 {{ config(materialized='table') }}
 
 WITH lga_mapping AS (

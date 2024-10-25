@@ -1,4 +1,4 @@
--- models/gold/fact_revenue.sql
+-- models/gold/fact/fact_revenue.sql
 WITH revenue AS (
     SELECT
         "LISTING_ID",

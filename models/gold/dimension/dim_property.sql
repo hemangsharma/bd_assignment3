@@ -1,4 +1,4 @@
--- models/gold/dim_property.sql
+-- models/gold/dimension/dim_property.sql
 {{ config(
     materialized='table'
 ) }}

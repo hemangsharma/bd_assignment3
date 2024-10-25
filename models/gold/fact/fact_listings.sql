@@ -1,4 +1,4 @@
--- models/gold/fact_listings.sql
+-- models/gold/fact/fact_listings.sql
 WITH listings AS (
     SELECT
         "LISTING_ID",

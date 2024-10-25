@@ -1,4 +1,4 @@
--- models/dim_suburb.sql
+-- models/gold/dimension/dim_suburb.sql
 
 {{ config(
     materialized='table'

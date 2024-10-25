@@ -1,4 +1,4 @@
--- models/gold/fact_listing.sql
+-- models/gold/fact/fact_listing.sql
 SELECT 
     "LISTING_ID",
     "HOST_ID",

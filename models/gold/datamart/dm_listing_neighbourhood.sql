@@ -1,3 +1,5 @@
+-- models/gold/datamart/dm_listing_neighbourhood.sql
+
 WITH neighbourhood_metrics AS (
     SELECT
         listing_neighbourhood,

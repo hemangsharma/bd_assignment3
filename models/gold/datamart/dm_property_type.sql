@@ -1,4 +1,5 @@
--- models/datamart/dm_property_type.sql
+-- models/gold/datamart/dm_property_type.sql
+
 {{ config(materialized='table') }}
 
 WITH property_metrics AS (

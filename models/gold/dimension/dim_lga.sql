@@ -1,4 +1,4 @@
--- models/gold/dim_lga.sql
+-- models/gold/dimension/dim_lga.sql
 SELECT 
     lga_code,
     median_rent_weekly,

@@ -6,38 +6,41 @@ WITH revenue_data AS (
         a."HOST_ID",
         a.LISTING_NEIGHBOURHOOD,
         a.PRICE,
-        a."NUMBER_OF_REVIEWS",
+        a.NUMBER_OF_REVIEWS,
         a.REVIEW_SCORES_RATING,
         a."SCRAPED_DATE",
-        l.lga_name,  -- Assuming LGA_CODE is in the silver_lga_neighbourhood
-        SUM(a.PRICE) AS estimated_revenue,
-        COUNT(a."LISTING_ID") AS active_listings
+        a."SCRAPED_MONTH",
+        l.lga_name,
+        l.lga_code,
+        SUM(a.PRICE * a.NUMBER_OF_REVIEWS) AS estimated_revenue,  -- Estimate revenue as price * reviews
+        COUNT(DISTINCT a."LISTING_ID") AS active_listings         -- Count distinct listings as active listings
     FROM
         {{ ref('silver_airbnb_listings') }} AS a
     JOIN
         {{ ref('silver_lga_neighbourhood') }} AS l
     ON
-        a.LISTING_NEIGHBOURHOOD = l.listing_neighbourhood
-
-    WHERE
-        a."SCRAPED_DATE" >= DATEADD(MONTH, -12, CURRENT_DATE)  -- Last 12 months
+        a.listing_neighbourhood = l.listing_neighbourhood
     GROUP BY
         a."LISTING_ID",
         a."HOST_ID",
         a.LISTING_NEIGHBOURHOOD,
         a.PRICE,
-        a."NUMBER_OF_REVIEWS",
+        a.NUMBER_OF_REVIEWS,
         a.REVIEW_SCORES_RATING,
-        a."SCRAPED_DATE"
+        a."SCRAPED_DATE",
+        a."SCRAPED_MONTH",
+        l.lga_name,
+        l.lga_code
 )
 
 SELECT
-    listing_id,
-    host_id,
+    "LISTING_ID",
+    "HOST_ID",
     listing_neighbourhood,
     lga_code,
     estimated_revenue,
     active_listings,
-    scraped_date
+    "SCRAPED_DATE",
+    "SCRAPED_MONTH"
 FROM
     revenue_data

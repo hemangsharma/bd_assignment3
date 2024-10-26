@@ -38,4 +38,5 @@ models:
 
 snapshots:
   assignment3:
-    +schema: silver
+      +schema: silver
+      +materialized: snapshot

@@ -26,10 +26,14 @@ models:
         +schema: silver
         +materialized: table
     gold:
-        +schema: gold
-        +materialized: table
+        dimension:
+          +schema: gold
+          +materialized: table
+        fact: 
+          +schema: gold
+          +materialized: table  
         datamart:
-          +schema: datamart
+          +schema: gold
           +materialized: view 
 
 snapshots:

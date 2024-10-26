@@ -12,8 +12,8 @@ WITH revenue_data AS (
         a."SCRAPED_MONTH",
         l.lga_name,
         l.lga_code,
-        SUM(a.PRICE * a.NUMBER_OF_REVIEWS) AS estimated_revenue,  -- Estimate revenue as price * reviews
-        COUNT(DISTINCT a."LISTING_ID") AS active_listings         -- Count distinct listings as active listings
+        SUM(a.PRICE * a.NUMBER_OF_REVIEWS) AS estimated_revenue,  
+        COUNT(DISTINCT a."LISTING_ID") AS active_listings         
     FROM
         {{ ref('silver_airbnb_listings') }} AS a
     JOIN

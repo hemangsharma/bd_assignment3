@@ -1,4 +1,4 @@
-bd_assignment3:
+assignment3:
   target: dev
   outputs:
     dev:

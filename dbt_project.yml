@@ -32,7 +32,7 @@ models:
         fact: 
           +schema: gold
           +materialized: table  
-        datamart:
+        mart:
           +schema: gold
           +materialized: view 
 

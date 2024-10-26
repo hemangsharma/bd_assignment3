@@ -1,14 +1,13 @@
-assignment3:
-  target: dev
-  outputs:
-    dev:
-      type: postgres
-      threads: 1
-      host: 34.116.65.230
-      port: 5432
-      user: hemang
-      password: Zqwert@5im6
-      dbname: postgres
-      schema: bronze
-
-     
+profiles:
+  assignment3:
+    target: production
+    outputs:
+      dev:
+        type: postgres
+        threads: 1
+        host: 34.116.65.230
+        port: 5432
+        user: hemang
+        password: Zqwert@5im6
+        dbname: postgres
+        schema: bronze

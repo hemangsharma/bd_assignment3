@@ -2,7 +2,7 @@ name: 'bd_assignment3'
 version: '1.0.0'
 config-version: 2
 
-profile: 'default'
+profile: 'assignment3'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -11,29 +11,30 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target" 
+clean-targets:  
   - "target"
   - "dbt_packages"
 
 
 models:
-    bronze:
-        +schema: bronze
-        +materialized: table
-    silver:
-        +schema: silver
-        +materialized: table
-    gold:
-        dimension:
-          +schema: gold
+      bronze:
+          +schema: bronze
           +materialized: table
-        fact: 
-          +schema: gold
-          +materialized: table  
-        mart:
-          +schema: gold
-          +materialized: view 
+
+      silver:
+          +schema: silver
+          +materialized: table
+      gold:
+          dimension:
+            +schema: gold
+            +materialized: table
+          fact: 
+            +schema: gold
+            +materialized: table  
+          mart:
+            +schema: gold
+            +materialized: view 
 
 snapshots:
       +schema: silver

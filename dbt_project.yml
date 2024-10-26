@@ -38,20 +38,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   assignment3:
     bronze:
-      +schema: dbt_assignment_bronze
+      +schema: bronze
       +materialized: table
     silver:
-      +schema: dbt_assignment_silver
+      +schema: silver
       +materialized: table
     gold:
-      +schema: dbt_assignment_gold
+      +schema: gold
       +materialized: table
       datamart:
-        +schema: dbt_assignment_datamart
+        +schema: datamart
         +materialized: view 
 
 snapshots:
   assignment3:
-    +schema: dbt_assignment_silver
+    +schema: silver
     +strategy: timestamp  # Set default snapshot strategy
     +unique_key: "LISTING_ID"

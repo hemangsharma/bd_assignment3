@@ -1,5 +1,9 @@
 -- models/silver/silver_census.sql
-{{ config(materialized='table') }}
+{{ config(
+    schema="silver",
+    materialized="table"
+) }}
+
 
 WITH cleaned_census_g01 AS (
     SELECT

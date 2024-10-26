@@ -1,8 +1,10 @@
 -- models/silver/silver_airbnb_listings.sql
 
 {{ config(
-    materialized='table'
+    schema="silver",
+    materialized="table"
 ) }}
+
 
 WITH cleaned_airbnb_listings AS (
     SELECT

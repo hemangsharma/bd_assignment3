@@ -1,4 +1,9 @@
 -- models/silver/silver_lga_neighbourhood.sql
+{{ config(
+    schema="silver",
+    materialized="table"
+) }}
+
 
 WITH lga_neighbourhood AS (
     SELECT 

@@ -1,4 +1,9 @@
 -- models/silver/hosts_cleaned.sql
+{{ config(
+    schema="silver",
+    materialized="table"
+) }}
+
 SELECT 
     "HOST_ID" AS host_id,
     host_neighbourhood,

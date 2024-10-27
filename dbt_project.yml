@@ -2,7 +2,7 @@ name: 'bd_assignment3'
 version: '1.0.0'
 config-version: 2
 
-profile: 'assignment3'
+profile: 'default'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]

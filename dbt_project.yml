@@ -1,4 +1,4 @@
-name: 'assignment3'
+name: 'bd_assignment3'
 version: '1.0.0'
 config-version: 2
 
@@ -18,7 +18,7 @@ clean-targets:
 
 
 models:
-  assignment3:
+  bd_assignment3:
       bronze:
           +schema: bronze
           +materialized: table
@@ -38,5 +38,6 @@ models:
             +materialized: view 
 
 snapshots:
+  bd_assignment3:
       +schema: silver
       +materialized: snapshot

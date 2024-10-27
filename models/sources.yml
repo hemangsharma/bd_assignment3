@@ -7,7 +7,12 @@ sources:
 
     tables:
       - name: lga_code
+        description: "Raw data containing Local Government Area codes"
       - name: lga_suburb
+        description: "Raw data containing Local Government Area suburb mappings"
       - name: census_g01
+        description: "Raw Census data - G01 table"
       - name: census_g02
+        description: "Raw Census data - G02 table"
       - name: airbnb_listings
+        description: "Raw data of Airbnb listings"

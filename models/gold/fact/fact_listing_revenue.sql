@@ -5,6 +5,7 @@ WITH revenue_data AS (
         a.LISTING_NEIGHBOURHOOD,
         a.PRICE,
         a."SCRAPED_DATE",
+        a."SCRAPED_MONTH",
         l.lga_name,
         l.lga_code,
         SUM(a.PRICE * (30 - a.availability_30)) AS estimated_revenue,  -- Revenue based on price and availability
@@ -24,6 +25,7 @@ WITH revenue_data AS (
         l.lga_name,
         a.PRICE,
         l.lga_code,
+        a."SCRAPED_MONTH",
         a."SCRAPED_DATE"
 )
 
@@ -34,6 +36,7 @@ SELECT
     lga_code,
     estimated_revenue,
     active_listings,
+    "SCRAPED_MONTH",
     "SCRAPED_DATE"
 FROM
     revenue_data

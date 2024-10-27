@@ -2,7 +2,7 @@ name: 'assignment3'
 version: '1.0.0'
 config-version: 2
 
-profile: 'default'
+profile: 'assignment3'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]

@@ -1,5 +1,6 @@
 -- models/gold//datamart/dm_host_neighbourhood.sql
-{{ config(materialized='table') }}
+
+{{ config(materialized='view') }}
 
 WITH lga_mapping AS (
     SELECT 

@@ -1,6 +1,6 @@
 -- models/gold/datamart/dm_property_type.sql
 
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
 WITH property_metrics AS (
     SELECT

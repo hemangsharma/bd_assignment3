@@ -1,5 +1,7 @@
 -- models/gold/datamart/dm_listing_neighbourhood.sql
 
+{{ config(materialized='view') }}
+
 WITH neighbourhood_metrics AS (
     SELECT
         listing_neighbourhood,

@@ -20,7 +20,7 @@ lga_mortgage AS (
         lga_code,
         median_mortgage_repay_monthly  -- Assuming this column exists in your census data
     FROM 
-        {{ ref('silver_census') }}
+        {{ ref('dim_lga') }}
 )
 SELECT 
     s.lga_code,
